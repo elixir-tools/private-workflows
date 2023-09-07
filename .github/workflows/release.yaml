@@ -1,0 +1,29 @@
+name: Binaries
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: build
+    runs-on: self-hosted
+
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "$PATH"
+      - run: echo "PATH=/opt/homebrew/bin:/opt/homebrew/sbin:$PATH" >> $GITHUB_ENV
+      - name: Cirrus CI
+        run: cirrus run --artifacts-dir artifacts
+      - name: Create Checksum
+        run: |
+          cd artifacts/Build/binary/next-ls/result/burrito_out
+          shasum -a 256 * > next_ls_checksums.txt
+          cd ..
+      - name: Upload to release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload ${{ github.event.release.tag_name }} artifacts/Build/binary/next-ls/result/burrito_out/*
