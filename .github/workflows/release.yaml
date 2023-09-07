@@ -28,10 +28,10 @@ jobs:
         run: cirrus run --artifacts-dir artifacts
       - name: Create Checksum
         run: |
-          cd artifacts/Build/binary/next-ls/result/burrito_out
+          cd artifacts/Build/binary/result/burrito_out
           shasum -a 256 * > next_ls_checksums.txt
           cd ..
       - name: Upload to release
         env:
           GITHUB_TOKEN: ${{ secrets.token }}
-        run: gh release upload ${{inputs.tag}} artifacts/Build/binary/next-ls/result/burrito_out/*
+        run: gh release upload ${{inputs.tag}} artifacts/Build/binary/result/burrito_out/*
