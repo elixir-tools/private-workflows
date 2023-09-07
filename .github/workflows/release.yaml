@@ -34,4 +34,4 @@ jobs:
       - name: Upload to release
         env:
           GITHUB_TOKEN: ${{ secrets.token }}
-        run: gh release upload ${{inputs.tag}} artifacts/Build/binary/result/burrito_out/*
+        run: gh release upload ${{inputs.tag}} artifacts/Build/binary/result/burrito_out/* --repo ${{ inputs.repo }}
