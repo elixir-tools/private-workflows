@@ -16,7 +16,8 @@ on:
 jobs:
   build:
     name: build
-    runs-on: self-hosted
+    runs-on:
+      group: apple-silicon
 
     steps:
       - uses: actions/checkout@v4
