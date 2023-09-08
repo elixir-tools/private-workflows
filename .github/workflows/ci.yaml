@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  workflow_call:
+    inputs:
+      repo:
+        required: true
+        type: string
+    secrets:
+      token:
+        required: true
+
+jobs:
+  ci:
+    name: run
+    runs-on:
+      group: apple-silicon
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ inputs.repo }}
+      - run: echo "PATH=/opt/homebrew/bin:/opt/homebrew/sbin:$PATH" >> $GITHUB_ENV
+      - name: Cirrus CI
+        run: cirrus run --artifacts-dir artifacts
