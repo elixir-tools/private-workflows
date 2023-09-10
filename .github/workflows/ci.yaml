@@ -3,6 +3,9 @@ name: CI
 on:
   workflow_call:
     inputs:
+      name:
+        required: true
+        type: string
       repo:
         required: true
         type: string
@@ -16,7 +19,7 @@ on:
 
 jobs:
   ci:
-    name: run
+    name: ${{ inputs.name }}
     runs-on:
       group: apple-silicon
 
