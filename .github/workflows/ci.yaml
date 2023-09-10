@@ -6,6 +6,10 @@ on:
       repo:
         required: true
         type: string
+      args:
+        required: false
+        default: ""
+        type: string
     secrets:
       token:
         required: true
@@ -22,4 +26,4 @@ jobs:
           repository: ${{ inputs.repo }}
       - run: echo "PATH=/opt/homebrew/bin:/opt/homebrew/sbin:$PATH" >> $GITHUB_ENV
       - name: Cirrus CI
-        run: cirrus run --artifacts-dir artifacts
+        run: cirrus run --artifacts-dir artifacts ${{ inputs.args }}
