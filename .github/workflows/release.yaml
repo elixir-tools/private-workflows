@@ -30,6 +30,7 @@ jobs:
       - name: Create Checksum
         run: |
           cd artifacts/Build/binary/burrito_out
+          chmod +x ./*
           shasum -a 256 ./* > next_ls_checksums.txt
           cd ..
       - name: Upload to release
